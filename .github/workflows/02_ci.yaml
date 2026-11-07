@@ -1,9 +1,15 @@
 
 name: CI
 
-on: [push]
+on:
+  push:
+  pull_request:
+
+env:
+  APP_NAME: fastapi-starter
 
 jobs:
+
   lint:
     name: Lint - Ruff
     runs-on: ubuntu-latest
@@ -44,6 +50,20 @@ jobs:
 
       - name: Importer l'application
         run: python -c "from app.main import app; print(app.title)"
+
+      - name: Afficher les contextes
+        run: |
+          echo "Nom de l'application : ${{ env.APP_NAME }}"
+          echo "Acteur : ${{ github.actor }}"
+          echo "Événement : ${{ github.event_name }}"
+          echo "Branche : ${{ github.ref_name }}"
+          echo "SHA du commit : ${{ github.sha }}"
+          echo "OS du runner : ${{ runner.os }}"
+          echo "Branche source : ${{ github.head_ref }}"
+          echo "Branche destination : ${{ github.base_ref }}"
+
+      - name: Afficher les informations GitHub
+        run: echo '${{ toJson(github) }}'
 
   test:
     name: Test - Pytest
