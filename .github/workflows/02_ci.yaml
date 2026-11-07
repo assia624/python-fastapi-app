@@ -5,8 +5,7 @@ on:
   push:
   pull_request:
 
-env:
-  APP_NAME: fastapi-starter
+
 
 jobs:
 
@@ -52,6 +51,8 @@ jobs:
         run: python -c "from app.main import app; print(app.title)"
 
       - name: Afficher les contextes
+        env:
+          APP_NAME: fastapi-starter
         run: |
           echo "Nom de l'application : ${{ env.APP_NAME }}"
           echo "Acteur : ${{ github.actor }}"
