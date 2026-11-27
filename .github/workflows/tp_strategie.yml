@@ -9,6 +9,7 @@ jobs:
     continue-on-error: ${{ matrix.experimental == true }}
 
     strategy:
+      max-parallel: 2
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
